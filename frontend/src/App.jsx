@@ -14,6 +14,7 @@ import Contact from "./components/Contact";
 import WhyChoose from "./components/WhyChoose";
 import About from "./components/about";
 import Messages from "./components/Messages";
+import Premium from "./components/Premium";
 
 function App() {
   return (
@@ -29,11 +30,12 @@ function App() {
               <Route path="/connections" element={<Connections />} />
               <Route path="/requests" element={<Requests />} />
               <Route path="/chat/:targetUserId" element={<Chat/>}/>
-               <Route path="/termsofuse" element={<Termsofuse />} />
+              <Route path="/termsofuse" element={<Termsofuse />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/whychoose" element={<WhyChoose />} />
-              <Route path="/messages" element={<Messages />} />            
+              <Route path="/messages" element={<Messages />} />  
+              <Route path="/premium" element={<Premium />} />          
             </Route>
           </Routes>
         </BrowserRouter>

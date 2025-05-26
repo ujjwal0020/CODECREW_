@@ -2,10 +2,11 @@ import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
 import { removeUserFromFeed } from "../utils/feedSlice";
+import { VscVerifiedFilled } from "react-icons/vsc";
 
 const UserCard = ({ user }) => {
   if (!user) return null;
-  const { _id, firstName, lastName, photoUrl, age, gender, about } = user;
+  const { _id, firstName, lastName, photoUrl, age, gender, about, isPremium } = user;
   const dispatch = useDispatch();
 
   const handleSendRequest = async (status, userId) => {
@@ -22,6 +23,7 @@ const UserCard = ({ user }) => {
     }
   };
 
+
   return (
     <div className="flex justify-center items-center min-h-[70vh] w-full p-4">
       <div className="card relative w-full max-w-xs rounded-2xl shadow-2xl overflow-hidden bg-base-300 flex flex-col">
@@ -35,14 +37,27 @@ const UserCard = ({ user }) => {
 
           {/* Gradient overlay for text */}
           <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-transparent to-transparent p-4 z-10">
-            <h1 className="text-2xl font-bold text-white drop-shadow-md">
+            {/* Name with badge */}
+            <h1 className="text-2xl font-bold text-white drop-shadow-md flex items-center gap-2">
               {firstName} {lastName}
+              {isPremium && (
+                <span className="inline-flex items-center justify-center">
+                  <VscVerifiedFilled
+                    className="text-green-400 text-xl"
+                    title="Premium User"
+                  />
+                </span>
+              )}
             </h1>
+
+            {/* About */}
             {about && (
               <p className="mt-1 text-xs sm:text-sm text-white drop-shadow-md line-clamp-3">
                 {about}
               </p>
             )}
+
+            {/* Age & Gender */}
             {(age || gender) && (
               <p className="mt-2 text-xs sm:text-sm text-white drop-shadow-md flex gap-2 items-center">
                 <span>🎂 {age || "N/A"}</span>
@@ -53,7 +68,7 @@ const UserCard = ({ user }) => {
           </div>
         </figure>
 
-        {/* Action buttons below the image */}
+        {/* Action buttons */}
         <div className="flex justify-center gap-8 p-4 bg-white">
           <button
             onClick={() => handleSendRequest("ignored", _id)}
@@ -73,6 +88,7 @@ const UserCard = ({ user }) => {
       </div>
     </div>
   );
+  
 };
 
 export default UserCard;

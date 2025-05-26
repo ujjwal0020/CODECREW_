@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { AiOutlineMessage } from "react-icons/ai";
 import { SubscriptionCard } from "./SubscriptionCard";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { PiContactlessPaymentFill } from "react-icons/pi";
 
 const Sidebar = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -73,6 +74,16 @@ const Sidebar = () => {
           onClick={closeDrawer}
         >
           <FaUserEdit /> Profile
+        </Link>
+      </li>
+      <li>
+        <Link
+          to="/premium"
+          className="flex items-center gap-3 hover:text-blue-600"
+          onClick={closeDrawer}
+        >
+          <PiContactlessPaymentFill />
+          Premium
         </Link>
       </li>
     </ul>
