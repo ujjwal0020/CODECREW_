@@ -1,31 +1,30 @@
-const nodemailer = require("nodemailer");
+const sgMail = require("@sendgrid/mail");
 require("dotenv").config();
 
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 const sendWelcomeEmail = async (to, name) => {
-    try{
-  const transporter = nodemailer.createTransport({
-    host: process.env.MAILTRAP_HOST,
-    port: process.env.MAILTRAP_PORT,
-    auth: {
-      user: process.env.MAILTRAP_USER,
-      pass: process.env.MAILTRAP_PASS,
-    },
-  });
+  try {
+    const msg = {
+      to,
+      from: {
+        email: "gshikhar04@gmail.com",
+        name: "DevTinder 👋",
+      },
+      subject: "Welcome to DevTinder!",
+      html: `
+        <h2>Hello ${name},</h2>
+        <p>Thanks for signing up with <strong>DevTinder</strong>! 🎉</p>
+        <p>We're excited to have you on board.</p>
+        <p>Explore, connect, and build meaningful dev friendships!</p>
+      `,
+    };
 
-  const mailOptions = {
-    from: '"DevTinder👋" <no-reply@myapp.com>',
-    to,
-    subject: "Welcome to DevTinder!",
-    html: `<h2>Hello ${name},</h2>
-    <p>Thanks for signing up with DevTinder! 🎉</p>
-     <p>We're excited to have you! 🎉</p>`,
-  };
-
-  await transporter.sendMail(mailOptions);
-  console.log(`Email sent to ${to}`);
-} catch (err) {
-    console.error("Error sending email:", err);
-}
+    await sgMail.send(msg);
+    console.log(`✅ Welcome email sent to ${to}`);
+  } catch (error) {
+    console.error("❌ Error sending welcome email:", error);
+  }
 };
 
 module.exports = sendWelcomeEmail;
