@@ -40,7 +40,7 @@ const UserCard = ({ user }) => {
             {/* Name with badge */}
             <h1 className="text-2xl font-bold text-white drop-shadow-md flex items-center gap-2">
               {firstName} {lastName}
-              {isPremium && (
+              {(isPremium) && (
                 <span className="inline-flex items-center justify-center">
                   <VscVerifiedFilled
                     className="text-green-400 text-xl"

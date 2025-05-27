@@ -2,6 +2,7 @@ const express = require("express");
 const User = require("../models/user");
 const { validateSignUpData } = require("../utils/validation");
 const bcrypt = require("bcrypt");
+const sendWelcomeEmail = require("../utils/sendEmail");
 
 const authRouter = express.Router();
 
@@ -25,7 +26,11 @@ authRouter.post("/signup", async (req,res) => {
     });
     //Saving the user to the database
     await user.save();
-    res.send("User added successfully")
+
+    await sendWelcomeEmail(emailId, firstName);
+
+    res.send("User added successfully and welcome mail sent")
+   
     }
     catch(err) {
         res.status(400).send("ERROR :  " + err.message);
