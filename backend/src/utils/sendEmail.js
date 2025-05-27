@@ -1,6 +1,7 @@
 const sgMail = require("@sendgrid/mail");
 require("dotenv").config();
 
+console.log("SendGrid Key:", process.env.SENDGRID_API_KEY);
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendWelcomeEmail = async (to, name) => {
