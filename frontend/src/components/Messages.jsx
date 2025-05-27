@@ -6,9 +6,11 @@ import { addConnections } from "../utils/conectionSlice";
 import Sidebar from "../components/Sidebar";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import  {SubscriptionCard}  from "../components/SubscriptionCard"; 
 
 const Messages = () => {
   const connections = useSelector((store) => store.connections);
+  const user = useSelector((store) => store.user); 
   const dispatch = useDispatch();
 
   const fetchConnections = async () => {
@@ -26,8 +28,25 @@ const Messages = () => {
     fetchConnections();
   }, []);
 
+  // Show SubscriptionCard if not premium
+  if (!user?.isPremium) {
+    return (
+      <div className="flex flex-col min-h-screen bg-white">
+        <div className="flex flex-1">
+          <Sidebar />
+          <div className="flex-1 flex items-center justify-center">
+            <SubscriptionCard />
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Handle loading state
   if (!connections) return null;
 
+  // If no connections
   if (connections.length === 0) {
     return (
       <div className="flex flex-col min-h-screen bg-white">
@@ -42,14 +61,11 @@ const Messages = () => {
     );
   }
 
+  // Premium users view messages
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      {/* Content area with Sidebar and Main Content */}
       <div className="flex flex-1">
-        {/* Sidebar */}
         <Sidebar />
-
-        {/* Main Content */}
         <div className="flex-1 px-6 py-10">
           <h1 className="text-3xl font-bold text-gray-800 text-center mb-10">
             Message your Connections
@@ -94,7 +110,6 @@ const Messages = () => {
         </div>
       </div>
 
-      {/* Footer at bottom */}
       <Footer />
     </div>
   );

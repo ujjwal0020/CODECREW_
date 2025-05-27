@@ -1,4 +1,5 @@
 import { FaCheck } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export const SubscriptionCard = () => (
   <div className="shadow-md rounded-lg p-6 relative z-10">
@@ -35,6 +36,8 @@ export const SubscriptionCard = () => (
         And everything you love from DevTinder Plus®{" "}
       </li>
     </ul>
-    <button className="btn btn-primary w-full mt-5">Subscribe Now</button>
+    <Link to="/premium" className="w-full">
+      <button className="btn btn-primary w-full mt-5">Subscribe Now</button>
+    </Link>
   </div>
 );
