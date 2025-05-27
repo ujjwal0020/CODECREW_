@@ -6,6 +6,8 @@ const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const http = require("http");
 
+require("./utils/cronjob"); // Import cron job for scheduled tasks
+
 app.use(
   cors({
     origin: "http://localhost:5173",
