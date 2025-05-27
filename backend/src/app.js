@@ -10,7 +10,7 @@ require("./utils/cronjob"); // Import cron job for scheduled tasks
 
 app.use(
   cors({
-    origin: "https://codecrew-mq5z.onrender.com",
+    origin: "https://codecrew-frontend-u558.onrender.com",
     credentials: true,
   })
 ); // to allow cross-origin requests
