@@ -47,7 +47,7 @@ const Sidebar = () => {
           <MdOutlineNotifications /> Notifications
         </Link>
       </li>
-      <li>
+      {/* <li>
         <button
           onClick={() => {
             openModal();
@@ -57,7 +57,7 @@ const Sidebar = () => {
         >
           <FaEye /> Views
         </button>
-      </li>
+      </li> */}
       <li>
         <Link
           to="/messages"
