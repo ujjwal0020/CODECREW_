@@ -1,7 +1,7 @@
 import React from "react";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
-
+import aboutImg from "../assets/about.jpg";
 const About = () => {
   return (
     <div className="bg-white text-gray-800 min-h-screen">
@@ -18,7 +18,7 @@ const About = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div>
             <img
-              src="https://cdn.rareblocks.xyz/collection/celebration/images/team/1/team.jpg"
+              src={aboutImg}
               alt="Developers"
               className="rounded-xl shadow-lg"
             />
