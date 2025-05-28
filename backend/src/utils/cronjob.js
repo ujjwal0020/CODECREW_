@@ -5,7 +5,7 @@ const sendEmail = require("../utils/sendEmail");
 const ConnectionRequestModel = require("../models/connectionRequest");
 
 // Runs every day at 8:00 AM
-cron.schedule("18 17 * * *", async () => {
+cron.schedule("22 17 * * *", async () => {
   try {
     const yesterday = subDays(new Date(), 1);
     const yesterdayStart = startOfDay(yesterday);
