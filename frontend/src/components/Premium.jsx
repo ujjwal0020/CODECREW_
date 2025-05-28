@@ -5,32 +5,33 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Premium = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const [isUserPremium, setIsUserPremium] = useState(false);
-    useEffect(() => {
-      verifyPremiumUser();
-    }, []);
+  const [isUserPremium, setIsUserPremium] = useState(false);
+  useEffect(() => {
+    verifyPremiumUser();
+  }, []);
 
-    const verifyPremiumUser = async () => {
-      const res = await axios.get(BASE_URL + "/premium/verify", {
-        withCredentials: true,
-      });
+  const verifyPremiumUser = async () => {
+    const res = await axios.get(BASE_URL + "/premium/verify", {
+      withCredentials: true,
+    });
 
-      if (res.data.isPremium) {
-        setIsUserPremium(true);
-      }
-    };
+    if (res.data.isPremium) {
+      setIsUserPremium(true);
+    }
+  };
 
   const handleBuyClick = async (type) => {
-    const order = await axios.post( BASE_URL + "/payment/create", 
-        { membershipType: type },
-        { withCredentials: true,}
-    )
+    const order = await axios.post(
+      BASE_URL + "/payment/create",
+      { membershipType: type },
+      { withCredentials: true }
+    );
 
     //open razorpay dialog box
 
-    const {amount, keyId, currency, notes, orderId} = order.data;
+    const { amount, keyId, currency, notes, orderId } = order.data;
 
     const options = {
       key: keyId,
@@ -49,35 +50,36 @@ const Premium = () => {
       },
       handler: verifyPremiumUser,
     };
-    
+
     const rzp = new window.Razorpay(options);
     rzp.open();
   };
 
-  return isUserPremium ?
-  (
-  <div className="max-w-2xl mx-auto mt-20 px-6 py-10 bg-green-100 border border-green-300 rounded-2xl shadow-lg text-center">
-  <h1 className="text-4xl font-bold text-green-800 mb-4">🌟 Premium Access Granted!</h1>
-  <p className="text-lg text-green-700 mb-6">
-    You are already enjoying all the premium features. Thank you for being a valued member!
-  </p>
-  <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-    <button
-      onClick={() => navigate("/profile")}
-      className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full transition"
-    >
-      Go to Profile
-    </button>
-    <button
-      onClick={() => navigate("/explore")}
-      className="bg-white border border-green-600 text-green-700 font-semibold py-2 px-6 rounded-full hover:bg-green-50 transition"
-    >
-      Explore More Features
-    </button>
-  </div>
-</div>
-) 
-   : (
+  return isUserPremium ? (
+    <div className="max-w-2xl mx-auto mt-20 px-6 py-10 bg-green-100 border border-green-300 rounded-2xl shadow-lg text-center">
+      <h1 className="text-4xl font-bold text-green-800 mb-4">
+        🌟 Premium Access Granted!
+      </h1>
+      <p className="text-lg text-green-700 mb-6">
+        You are already enjoying all the premium features. Thank you for being a
+        valued member!
+      </p>
+      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button
+          onClick={() => navigate("/profile")}
+          className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-full transition"
+        >
+          Go to Profile
+        </button>
+        <button
+          onClick={() => navigate("/messages")}
+          className="bg-white border border-green-600 text-green-700 font-semibold py-2 px-6 rounded-full hover:bg-green-50 transition"
+        >
+          Go to Messages
+        </button>
+      </div>
+    </div>
+  ) : (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">
         Choose Your Membership
