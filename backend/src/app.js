@@ -5,6 +5,7 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const http = require("http");
+const testEmailRoute = require("./routes/testEmail");
 
 require("./utils/cronjob"); // Import cron job for scheduled tasks
 
@@ -25,12 +26,14 @@ const initializeSocket = require("./utils/socket");
 const chatRouter = require("./routes/chat");
 const paymentRouter = require("./routes/payment");
 
+
 app.use("/", authRouter);
 app.use("/", profileRouter);
 app.use("/", requestRouter);
 app.use("/", userRouter);
 app.use("/", chatRouter)
 app.use("/", paymentRouter)
+app.use("/api", testEmailRoute);
  
 const server = http.createServer(app);
 initializeSocket(server);
